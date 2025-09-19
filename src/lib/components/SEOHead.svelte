@@ -2,7 +2,9 @@
 	import { page } from '$app/stores';
 	import type { SEOData } from '$lib/utils/seo';
 	import { defaultSEOData, generateLDJSON, pageSEOData, softwareApplicationData } from '$lib/utils/seo';
-
+  import { t } from 'svelte-i18n';
+  export let pageTitleKey: string = 'seo.default_title';
+  export let pageDescKey: string = 'seo.default_desc';
 	export let customSEO: Partial<SEOData> = {};
   
   // Get page-specific SEO data based on current route
@@ -44,4 +46,10 @@
   
   <!-- Dynamic Structured Data -->
   {@html `<script type="application/ld+json">${generateLDJSON(structuredData)}</script>`}
+
+  <title>{$t(pageTitleKey)}</title>
+  <meta name="description" content={$t(pageDescKey)}>
+  <meta name="keywords" content={$t('seo.keywords')}>
+
+
 </svelte:head>

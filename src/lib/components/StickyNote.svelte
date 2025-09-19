@@ -338,7 +338,7 @@
 		transition: all 0.1s ease;
 		padding: 8px 8px 4px 8px;
 		box-sizing: border-box;
-		font-family: 'ReenieBeanie', cursive;
+		font-family: 'ReenieBeanie', 'Vazirmatn', cursive;
 		line-height: 1.4;
 		z-index: 100;
 		background: linear-gradient(135deg, var(--bg-color) 0%, var(--bg-color) 100%);

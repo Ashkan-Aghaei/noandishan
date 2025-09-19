@@ -328,7 +328,7 @@
 
   :global(body) {
     margin: 0;
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'Vazirmatn', system-ui, sans-serif;
     height: auto;
     min-height: 100%;
     overflow: visible !important;
@@ -431,7 +431,7 @@
 
   .search-input:focus {
     outline: none;
-    border-color: #87A96B;
+  border-color: #ff4a0b;
     box-shadow: 0 0 0 4px rgba(135, 169, 107, 0.1);
   }
 
@@ -447,7 +447,7 @@
     top: 50%;
     transform: translateY(-50%);
     padding: 0.75rem 1.5rem;
-    background: #87A96B;
+  background: #ff4a0b;
     color: white;
     border: none;
     border-radius: 12px;
@@ -500,7 +500,7 @@
   .result-card:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-    border-color: #87A96B;
+  border-color: #ff4a0b;
   }
 
   :global(.dark) .result-card {
@@ -509,7 +509,7 @@
   }
 
   :global(.dark) .result-card:hover {
-    border-color: #87A96B;
+  border-color: #ff4a0b;
   }
 
   .result-header {
@@ -592,9 +592,9 @@
   }
 
   .pagination-button:hover:not(.disabled) {
-    background: #87A96B;
+  background: #ff4a0b;
     color: white;
-    border-color: #87A96B;
+  border-color: #ff4a0b;
     transform: translateY(-1px);
   }
 
@@ -658,7 +658,7 @@
     width: 40px;
     height: 40px;
     border: 4px solid rgba(135, 169, 107, 0.3);
-    border-left: 4px solid #87A96B;
+  border-left: 4px solid #ff4a0b;
     border-radius: 50%;
     animation: spin 1s linear infinite;
     margin: 0 auto 1rem;

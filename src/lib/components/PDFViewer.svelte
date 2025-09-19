@@ -394,68 +394,76 @@
   }
 
 function handlePointerDown(event: PointerEvent) {
-    console.log('Canvas handlePointerDown called:', $drawingState.tool, event.target);
-    if (!drawingEngine) return;
-    
-    // If Ctrl is pressed, let the container handle panning
-    if (event.ctrlKey) {
-      console.log('Ctrl pressed, letting container handle panning');
-      return; // Don't capture the event, let container handle it
-    }
-    
-    // Only handle freehand drawing tools (pencil, eraser, highlight) here
-    // Text and note tools are handled by overlay components
-      // Arrow and stamp tools are handled by overlay components
-    if (!['pencil', 'eraser', 'highlight'].includes($drawingState.tool)) {
-      console.log('Non-freehand tool detected:', $drawingState.tool);
-      
-      // Text and note tools are now handled by overlay components, not here
-      if (['text', 'note'].includes($drawingState.tool)) {
-        console.log(`${$drawingState.tool} tool click ignored - handled by overlay component`);
-        return;
-      }
-      
-      // Arrow tool should be handled by ArrowOverlay
-      if (['arrow'].includes($drawingState.tool)) {
-        console.log(`${$drawingState.tool} tool click ignored - handled by ArrowOverlay`);
-        return;
-      }
-      
-      // Stamp tool is handled by overlay
-      if (['stamp'].includes($drawingState.tool)) {
-        console.log(`${$drawingState.tool} tool click ignored - handled by stamp overlay`);
-        return;
-      }
-      
-      console.warn('Unknown tool event reached drawing canvas:', $drawingState.tool);
+  console.log('Canvas handlePointerDown called:', $drawingState.tool, event.target);
+
+  if (!drawingEngine) return;
+
+  // If Ctrl is pressed, let the container handle panning
+  if (event.ctrlKey) {
+    console.log('Ctrl pressed, letting container handle panning');
+    return; // Don't capture the event, let container handle it
+  }
+
+  // NEW: If Hand tool is active, let the container handle panning (no drawing)
+  if ($drawingState.tool === 'hand') {
+    console.log('Hand tool active, letting container handle panning');
+    return; // Don't capture the event; allow bubbling to container handler
+  }
+
+  // Only handle freehand drawing tools (pencil, eraser, highlight) here
+  // Text and note tools are handled by overlay components
+  // Arrow and stamp tools are handled by overlay components
+  if (!['pencil', 'eraser', 'highlight'].includes($drawingState.tool)) {
+    console.log('Non-freehand tool detected:', $drawingState.tool);
+
+    // Text and note tools are now handled by overlay components, not here
+    if (['text', 'note'].includes($drawingState.tool)) {
+      console.log(`${$drawingState.tool} tool click ignored - handled by overlay component`);
       return;
     }
-    
-    console.log('Freehand tool starting drawing:', $drawingState.tool);
-    
-    event.preventDefault();
-    drawingCanvas.setPointerCapture(event.pointerId);
 
-    isDrawing = true;
-    // Get point and convert to base viewport coordinates (scale 1.0)
-    const canvasPoint = drawingEngine.getPointFromEvent(event);
-    const basePoint = {
-      x: canvasPoint.x / $pdfState.scale,
-      y: canvasPoint.y / $pdfState.scale,
-      pressure: canvasPoint.pressure
-    };
-    
-    const size = $drawingState.tool === 'eraser' ? $drawingState.eraserSize : $drawingState.lineWidth;
-    const color = $drawingState.tool === 'highlight' ? $drawingState.highlightColor : $drawingState.color;
-    drawingEngine.startDrawing(
-      canvasPoint, // Use canvas point for immediate visual feedback
-      $drawingState.tool,
-      color,
-      size
-    );
-    
-    currentDrawingPath = [basePoint]; // Store base viewport coordinates
+    // Arrow tool should be handled by ArrowOverlay
+    if (['arrow'].includes($drawingState.tool)) {
+      console.log(`${$drawingState.tool} tool click ignored - handled by ArrowOverlay`);
+      return;
+    }
+
+    // Stamp tool is handled by overlay
+    if (['stamp'].includes($drawingState.tool)) {
+      console.log(`${$drawingState.tool} tool click ignored - handled by stamp overlay`);
+      return;
+    }
+
+    console.warn('Unknown tool event reached drawing canvas:', $drawingState.tool);
+    return;
   }
+
+  console.log('Freehand tool starting drawing:', $drawingState.tool);
+
+  event.preventDefault();
+  drawingCanvas.setPointerCapture(event.pointerId);
+
+  isDrawing = true;
+  // Get point and convert to base viewport coordinates (scale 1.0)
+  const canvasPoint = drawingEngine.getPointFromEvent(event);
+  const basePoint = {
+    x: canvasPoint.x / $pdfState.scale,
+    y: canvasPoint.y / $pdfState.scale,
+    pressure: canvasPoint.pressure
+  };
+
+  const size = $drawingState.tool === 'eraser' ? $drawingState.eraserSize : $drawingState.lineWidth;
+  const color = $drawingState.tool === 'highlight' ? $drawingState.highlightColor : $drawingState.color;
+  drawingEngine.startDrawing(
+    canvasPoint, // Use canvas point for immediate visual feedback
+    $drawingState.tool,
+    color,
+    size
+  );
+
+  currentDrawingPath = [basePoint]; // Store base viewport coordinates
+}
+
 
 function handlePointerMove(event: PointerEvent) {
     if (isPanning) {
@@ -606,51 +614,55 @@ function handlePointerUp(event: PointerEvent) {
 
   // Update cursor based on current state
   function updateCursor() {
-    if (!containerDiv) return;
-    
-    if (cursorOverCanvas) {
-      // Inside canvas (PDF area)
-      if (isCtrlPressed) {
-        containerDiv.style.cursor = 'grab';
-        if (drawingCanvas) drawingCanvas.style.cursor = 'grab';
-      } else {
-        // Custom cursors based on tool
-        containerDiv.style.cursor = '';
-        if (drawingCanvas) {
-          if ($drawingState.tool === 'eraser') {
-            console.log('Setting eraser cursor:', eraserCursor);
-            drawingCanvas.style.cursor = eraserCursor;
-            // Test if cursor was applied
-            setTimeout(() => {
-              console.log('Current drawing canvas cursor:', drawingCanvas.style.cursor);
-            }, 100);
-          } else if ($drawingState.tool === 'highlight') {
-            // Use pencil cursor for highlight tool (similar drawing experience)
-            console.log('Setting highlight cursor:', pencilCursor);
-            drawingCanvas.style.cursor = pencilCursor;
-          } else {
-            console.log('Setting pencil cursor:', pencilCursor);
-            drawingCanvas.style.cursor = pencilCursor;
-            // Test if cursor was applied
-            setTimeout(() => {
-              console.log('Current drawing canvas cursor:', drawingCanvas.style.cursor);
-            }, 100);
-          }
-        }
-      }
-    } else {
-      // Outside canvas (background area) - always show grab cursor
-      containerDiv.style.cursor = 'grab';
-      if (drawingCanvas) drawingCanvas.style.cursor = '';
+  if (!containerDiv) return;
+
+  // وقتی Ctrl نگه داشته شده یا ابزار hand فعاله، باید کرسر حالت پن بگیرد
+  const shouldPanCursor = isCtrlPressed || $drawingState.tool === 'hand';
+  const panCursor = isPanning ? 'grabbing' : 'grab';
+
+  if (cursorOverCanvas) {
+    // داخل بوم (PDF area)
+    if (shouldPanCursor) {
+      containerDiv.style.cursor = panCursor;
+      if (drawingCanvas) drawingCanvas.style.cursor = panCursor;
+      return; // جلوی تنظیم کرسرِ ابزارهای رسم را بگیر
     }
+
+    // در غیر این صورت، کرسر بر اساس ابزار رسم تنظیم شود
+    containerDiv.style.cursor = '';
+    if (drawingCanvas) {
+      if ($drawingState.tool === 'eraser') {
+        console.log('Setting eraser cursor:', eraserCursor);
+        drawingCanvas.style.cursor = eraserCursor;
+        setTimeout(() => {
+          console.log('Current drawing canvas cursor:', drawingCanvas.style.cursor);
+        }, 100);
+      } else if ($drawingState.tool === 'highlight') {
+        console.log('Setting highlight cursor:', pencilCursor);
+        drawingCanvas.style.cursor = pencilCursor;
+      } else {
+        console.log('Setting pencil cursor:', pencilCursor);
+        drawingCanvas.style.cursor = pencilCursor;
+        setTimeout(() => {
+          console.log('Current drawing canvas cursor:', drawingCanvas.style.cursor);
+        }, 100);
+      }
+    }
+  } else {
+    // بیرون بوم: همیشه grab (برای پن پس‌زمینه)
+    containerDiv.style.cursor = 'grab';
+    if (drawingCanvas) drawingCanvas.style.cursor = '';
   }
+}
+
 
   // Container panning handlers for infinite canvas
   function handleContainerPointerDown(event: PointerEvent) {
     console.log('Container handleContainerPointerDown called:', event.target, 'Ctrl pressed:', event.ctrlKey);
     // Only handle panning when Ctrl is pressed
     // Let drawing canvas handle its own events
-    if (event.ctrlKey) {
+    if (event.ctrlKey || $drawingState.tool === 'hand') {
+      
       console.log('Container starting panning');
       event.preventDefault();
       isPanning = true;
@@ -1705,7 +1717,7 @@ function handlePointerUp(event: PointerEvent) {
   }
 </script>
 
-<div bind:this={containerDiv} class="pdf-viewer relative w-full h-full overflow-hidden">
+<div bind:this={containerDiv} class="pdf-viewer relative w-full h-full overflow-hidden "dir="ltr">
   <!-- Debug info logged to console -->
   
   <!-- Simple centered canvas -->
@@ -1806,4 +1818,14 @@ function handlePointerUp(event: PointerEvent) {
   }
   
   /* Drawing canvas cursor is dynamically controlled by JavaScript */
+
+   /* فقط داخل PDFViewer */
+  .pdf-root :global(.pdfViewer),
+  .pdf-root :global(.pdfViewer .page),
+  .pdf-root :global(.pdfViewer .textLayer) {
+    direction: ltr !important;
+    unicode-bidi: isolate;
+    text-align: left;
+  }
+
 </style>

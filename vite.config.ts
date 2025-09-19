@@ -1,10 +1,13 @@
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
 import { SvelteKitPWA } from '@vite-pwa/sveltekit';
+import react from '@vitejs/plugin-react';
+
 
 export default defineConfig({
 	plugins: [
 		sveltekit(),
+	    react(),
 		SvelteKitPWA({
 			manifest: {
 				short_name: 'LeedPDF',

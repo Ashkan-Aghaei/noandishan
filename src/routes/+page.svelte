@@ -31,6 +31,10 @@
   import { createBlankPDF, isValidMarkdownFile, isValidPDFFile } from '$lib/utils/pdfUtils';
   import { convertMarkdownToPDF, readMarkdownFile } from '$lib/utils/markdownUtils';
 
+  import SEOHead from '$lib/components/SEOHead.svelte';
+
+
+
   let pdfViewer: PDFViewer;
   let currentFile: File | string | null = null;
   let dragOver = false;
@@ -937,6 +941,10 @@
   });
 </script>
 
+
+
+<SEOHead pageTitleKey="seo.default_title" pageDescKey="seo.default_desc" />
+
 <svelte:window on:keydown|nonpassive={handleKeyboard} on:wheel|nonpassive|preventDefault={handleWheel} />
 
 <main
@@ -985,58 +993,25 @@
             <img src="/logo-dark.png" alt="LeedPDF" class="w-24 h-24 mx-auto hidden dark:block object-contain" />
           </div>
 
-          <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-charcoal dark:text-gray-100 mb-4 text-center leading-tight px-2" style="font-family: 'Dancing Script', cursive; font-weight: 600;">LeedPDF - Free PDF Annotation Tool</h1>
-          <h2 class="text-lg text-slate dark:text-gray-300 mb-6 font-normal hidden md:block">
-            Add drawings and notes to any PDF. <br />
-            <i>Works with mouse, touch, or stylus - completely free and private.</i>
-          </h2>
-
-          <BrowserExtensionPromotion {focusMode} />
-
+         <h2 class="text-lg text-slate dark:text-gray-300 mb-6 font-normal hidden md:block">
+            تخته طراحی هوش مصنوعی  <br />
+          </h2> 
+         
           <div class="space-y-4 flex flex-col items-center">
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
               <button
                 class="primary-button text-base sm:text-lg px-4 sm:px-6 py-3 sm:py-4 w-48 sm:w-56 h-14 sm:h-16 flex items-center justify-center"
                 on:click={() => (document.querySelector('input[type="file"]') as HTMLInputElement)?.click()}
               >
-                Choose PDF or MD
+                آپلود فایل
+              
               </button>
 
-              <button
-                class="secondary-button text-base sm:text-lg px-4 sm:px-6 py-3 sm:py-4 w-48 sm:w-56 h-14 sm:h-16 flex items-center justify-center"
-                on:click={handleViewFromLink}
-              >
-                Open from URL
-              </button>
+              
             </div>
 
             <div class="flex justify-center">
-              <button
-                class="secondary-button text-base sm:text-lg px-4 sm:px-6 py-3 sm:py-4 w-48 sm:w-56 h-14 sm:h-16 flex items-center justify-center"
-                class:opacity-75={isDropboxLoading}
-                class:cursor-not-allowed={isDropboxLoading}
-                disabled={isDropboxLoading}
-                on:click={handleDropboxImport}
-                title="Import PDF from your Dropbox account"
-              >
-                {#if isDropboxLoading}
-                  <div class="animate-spin w-5 h-5 mr-2 text-[#0061FF]">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                    </svg>
-                  </div>
-                  Opening Dropbox...
-                {:else}
-                  <svg class="w-5 h-5 mr-2 text-[#0061FF]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M6 2L0 6l6 4 6-4-6-4zM18 2l-6 4 6 4 6-4-6-4zM0 14l6-4 6 4-6 4-6-4zM18 10l6 4-6 4-6-4 6-4zM6 16l6 4 6-4-6-4-6 4z"/>
-                  </svg>
-                  Import from Dropbox
-                {/if}
-              </button>
-            </div>
-
-            <div class="text-sm text-slate">
-              <span>or</span>
+              
             </div>
 
             {#if !showUrlInput}
@@ -1046,22 +1021,7 @@
                 on:click={handleCreateBlankPDF}
                 title="Create a blank PDF page to start drawing and taking notes"
               >
-                Start Fresh
-              </button>
-
-              <button
-                class="secondary-button text-sm sm:text-lg px-3 sm:px-6 py-2 sm:py-4 w-28 sm:w-52 h-10 sm:h-16 flex items-center justify-center text-center flex-shrink-0 transform-gpu"
-                on:click={() => showTemplatePicker = true}
-              >
-                Browse Templates
-              </button>
-
-              <button
-                class="secondary-button text-sm sm:text-lg px-3 sm:px-6 py-2 sm:py-4 w-28 sm:w-52 h-10 sm:h-16 flex items-center justify-center text-center flex-shrink-0 transform-gpu"
-                on:click={handleSearchLinkClick}
-                aria-label="Search PDFs"
-              >
-                Search PDFs
+                تخته سفید
               </button>
             </div>
             {:else}
@@ -1097,9 +1057,7 @@
               </div>
             {/if}
 
-            <p class="text-base sm:text-lg text-slate dark:text-gray-300 font-medium hidden sm:block">
-              or drop a PDF or Markdown file anywhere
-            </p>
+           
           </div>
 
         </div>

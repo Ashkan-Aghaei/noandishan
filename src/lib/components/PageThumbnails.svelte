@@ -263,7 +263,7 @@
   }
 
   .thumbnail-item.active {
-    border-color: #87A96B;
+    border-color: #ff4a0b;
     background: #f0f6ea;
     box-shadow: 0 2px 4px rgba(135, 169, 107, 0.2);
   }
@@ -322,14 +322,14 @@
     width: 20px;
     height: 20px;
     border: 2px solid #e2e8f0;
-    border-top: 2px solid #87A96B;
+    border-top: 2px solid #ff4a0b;
     border-radius: 50%;
     animation: spin 1s linear infinite;
   }
 
   :global(.dark) .loading-spinner {
     border: 2px solid #4b5563;
-    border-top: 2px solid #87A96B;
+    border-top: 2px solid #ff4a0b;
   }
 
   .thumbnail-label {
@@ -344,12 +344,12 @@
   }
 
   .thumbnail-item.active .thumbnail-label {
-    color: #87A96B;
+    color: #ff4a0b;
     font-weight: 600;
   }
 
   :global(.dark) .thumbnail-item.active .thumbnail-label {
-    color: #87A96B;
+    color: #ff4a0b;
     font-weight: 600;
   }
 

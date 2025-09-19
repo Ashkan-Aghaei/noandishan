@@ -11,7 +11,12 @@
 	import { browser } from '$app/environment';
 	import { onMount } from 'svelte';
 	import { isTauri } from '$lib/utils/tauriUtils';
+	import { t } from 'svelte-i18n';
+	$: document.title = $t('seo.default_title');
+	
+	import ChatAssistantSidebar from '$lib/components/ChatAssistantSidebar.svelte';
 
+	
 	// License validation state
 	let showLicenseModal = false;
 	let licenseCheckCompleted = false;
@@ -92,15 +97,33 @@
 		licenseCheckCompleted = true;
 		// hasValidLicense remains false, so no update check will be triggered
 	}
+
+//gpt i18n persian 
+
+import { initI18n } from '$lib/i18n';
+export let data: { lang: string };
+
+
+// فارسی به عنوان پیش‌فرض
+initI18n(data?.lang || 'fa');
+
+
+
 </script>
 
 <SEOHead />
 <UpdateManager bind:this={updateManager} disableAutoCheck={true} />
+
+<ChatAssistantSidebar initialWidth={420} minWidth={300} maxWidth={900}>
+
+
 <slot />
+
+
 <ToastContainer />
 <UpdateNotification />
 <CookieConsentBanner />
-
+</ChatAssistantSidebar>
 <!-- License Modal for Tauri Desktop App -->
 <LicenseModal 
 	bind:isOpen={showLicenseModal}

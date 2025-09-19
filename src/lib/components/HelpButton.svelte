@@ -18,13 +18,3 @@
   $: hiddenClasses = showOnDesktopOnly ? 'hidden lg:flex' : '';
   $: allClasses = [baseClasses, positionClass, positionClasses, hiddenClasses, additionalClasses].filter(Boolean).join(' ');
 </script>
-
-<button
-  class={allClasses}
-  on:click={handleClick}
-  title="Show keyboard shortcuts (? or F1)"
-  aria-label="Show keyboard shortcuts"
->
-  <span>?</span>
-  <span>Help</span>
-</button>

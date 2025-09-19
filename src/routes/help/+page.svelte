@@ -284,13 +284,13 @@
 
   :global(body) {
     margin: 0;
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'Vazirmatn', system-ui, sans-serif;
     height: auto;
     min-height: 100%;
     overflow: visible !important;
   }
 
   main {
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'Vazirmatn', system-ui, sans-serif;
   }
 </style>

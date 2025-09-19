@@ -1,8 +1,7 @@
 import { derived, writable } from 'svelte/store';
 import type { PDFDocumentProxy } from 'pdfjs-dist';
 
-export type DrawingTool = 'pencil' | 'eraser' | 'text' | 'arrow' | 'highlight' | 'note' | 'stamp';
-
+export type DrawingTool = 'pencil' | 'eraser' | 'text' | 'arrow' | 'highlight' | 'note' | 'stamp' | 'hand';
 export interface DrawingState {
 	tool: DrawingTool;
 	color: string;
@@ -596,7 +595,7 @@ export const redoStack = writable<Array<{ pageNumber: number; paths: DrawingPath
 // Available colors for the color palette
 export const availableColors = [
 	'#2D3748', // charcoal
-	'#87A96B', // sage
+	' #ff4a0b', // sage
 	'#C4A5E7', // lavender
 	'#FFB5A7', // peach
 	'#A8E6CF', // mint

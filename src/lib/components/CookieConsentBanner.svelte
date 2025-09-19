@@ -168,7 +168,7 @@
 
 	.cookie-banner-icon {
 		flex-shrink: 0;
-		color: #87A96B; /* LeedPDF sage color */
+		color: #ff4a0b; /* LeedPDF sage color */
 	}
 
 	.cookie-banner-title {
@@ -269,13 +269,13 @@
 		transition: all 0.2s;
 		border: none;
 		/* LeedPDF primary-button style */
-		background: #87A96B; /* sage */
+		background: #ff4a0b; /* sage */
 		color: #121212;
 		box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 	}
 
 	.btn-primary:hover {
-		background: rgba(135, 169, 107, 0.9);
+		background: rgba(255,74,11,255);
 		transform: scale(1.02);
 		box-shadow: 0 8px 25px -8px rgba(135, 169, 107, 0.4);
 	}
@@ -323,7 +323,7 @@
 	}
 
 	.cookie-banner-footer a {
-		color: #87A96B; /* sage */
+		color: #ff4a0b; /* sage */
 		transition: color 0.2s;
 	}
 

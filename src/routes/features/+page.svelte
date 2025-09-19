@@ -1,6 +1,7 @@
 <script lang="ts">
 	import SEOHead from '$lib/components/SEOHead.svelte';
 
+  
 	const seoData = {
     title: 'LeedPDF Features - PDF Annotation Tools & Capabilities',
     description: 'Discover all LeedPDF features: draw, annotate, highlight, add text, shapes, and notes to PDFs. Works on any device with mouse, touch, or stylus input.',
@@ -100,6 +101,8 @@
   ];
 </script>
 
+<SEOHead pageTitleKey="features.title" pageDescKey="seo.default_desc" />
+
 <SEOHead customSEO={seoData} />
 
 <main class="min-h-screen bg-gradient-to-br from-cream via-sage/10 to-cream">
@@ -187,13 +190,13 @@
 
   :global(body) {
     margin: 0;
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'Vazirmatn', system-ui, sans-serif;
     height: auto;
     min-height: 100%;
     overflow: visible !important;
   }
 
   main {
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'Vazirmatn', system-ui, sans-serif;
   }
 </style>

@@ -11,6 +11,7 @@ export const prerender = true;
 export const ssr = false; // Disable SSR for the full client-side app
 
 export const load = async () => {
+	  return { lang: 'fa' };
 	if (browser && !dev && PUBLIC_POSTHOG_KEY) {
 		// Check if PostHog is already initialized to prevent duplicate initialization
 		if (window.__posthogInitialized) {

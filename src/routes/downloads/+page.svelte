@@ -3,6 +3,7 @@
 	import { Calendar, Download, ExternalLink, Tag } from 'lucide-svelte';
 	import { detectOS } from '$lib/utils/tauriUtils';
 
+  import SEOHead from '$lib/components/SEOHead.svelte';
 	interface Asset {
     name: string;
     browser_download_url: string;
@@ -180,6 +181,8 @@
   });
 </script>
 
+<SEOHead pageTitleKey="downloads.title" pageDescKey="seo.default_desc" />
+
 <svelte:head>
   <title>Download LeedPDF - Free PDF Editor for {userOS !== 'Unknown' ? userOS : 'Windows, macOS & Linux'}</title>
   <meta name="description" content="Download LeedPDF - Free, fast, and powerful PDF editor with drawing capabilities. Available for Windows, macOS, and Linux." />
@@ -317,7 +320,7 @@
 
   :global(body) {
     margin: 0;
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'Vazirmatn', system-ui, sans-serif;
     height: auto;
     min-height: 100%;
     overflow: visible !important;
@@ -378,7 +381,7 @@
     width: 40px;
     height: 40px;
     border: 4px solid #e8f5e8;
-    border-left: 4px solid #87A96B;
+  border-left: 4px solid #ff4a0b;
     border-radius: 50%;
     animation: spin 1s linear infinite;
     margin: 0 auto 1rem;
@@ -418,8 +421,8 @@
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    background: #87A96B;
-    color: #121212;
+  background: #ff4a0b;
+    color: #ffffff;
     padding: 0.75rem 1.5rem;
     border-radius: 12px;
     text-decoration: none;
@@ -454,7 +457,7 @@
   }
 
   .release-card.latest {
-    border-color: #87A96B;
+  border-color: #ff4a0b;
     box-shadow: 0 4px 20px rgba(135, 169, 107, 0.15);
   }
 
@@ -462,7 +465,7 @@
     position: absolute;
     top: -10px;
     right: 1rem;
-    background: #87A96B;
+  background: #ff4a0b;
     color: white;
     padding: 0.25rem 0.75rem;
     border-radius: 12px;
@@ -527,7 +530,7 @@
   }
 
   .release-notes summary {
-    color: #87A96B;
+  color: #ff4a0b;
     cursor: pointer;
     font-weight: 500;
   }
@@ -566,7 +569,7 @@
 
   .download-item:hover {
     background: #e8f5e8;
-    border-color: #87A96B;
+  border-color: #ff4a0b;
     transform: translateX(4px);
   }
 
@@ -604,7 +607,7 @@
   }
 
   :global(.download-arrow) {
-    color: #87A96B;
+  color: #ff4a0b;
     transition: transform 0.2s ease;
   }
 
@@ -619,7 +622,7 @@
     padding: 2.5rem;
     margin-bottom: 3rem;
     box-shadow: 0 8px 30px rgba(135, 169, 107, 0.15);
-    border: 2px solid #87A96B;
+  border: 2px solid #ff4a0b;
     text-align: center;
   }
 
@@ -640,7 +643,7 @@
     display: inline-flex;
     align-items: center;
     gap: 1.5rem;
-    background: linear-gradient(135deg, #87A96B, #95b377);
+  background: linear-gradient(135deg, #ff4a0b, #95b377);
     color: #121212;
     padding: 1.5rem 2rem;
     border-radius: 16px;
@@ -654,7 +657,7 @@
   .recommended-button:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 30px rgba(135, 169, 107, 0.4);
-    background: linear-gradient(135deg, #7a9960, #87A96B);
+  background: linear-gradient(135deg, #7a9960, #ff4a0b);
   }
 
   .recommended-icon {

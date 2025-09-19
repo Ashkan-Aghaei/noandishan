@@ -94,8 +94,6 @@ export function generateMetaTags(seoData: Partial<SEOData> = {}): string {
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     
     <!-- Preconnect to external domains -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://peerlist.io">
     
     <!-- DNS prefetch for performance -->

@@ -7,7 +7,7 @@ export default {
       colors: {
         // Vibey, creative color palette
         cream: '#FDF6E3',
-        sage: '#87A96B',
+        sage: '#f0683aff',
         lavender: '#C4A5E7',
         peach: '#FFB5A7',
         mint: '#A8E6CF',
@@ -42,5 +42,5 @@ export default {
       },
     },
   },
-  plugins: [require('@tailwindcss/typography')],
+ plugins: [require('@tailwindcss/typography'), require('tailwindcss-rtl')],
 }

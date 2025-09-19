@@ -16,6 +16,6 @@
   }
 
   :global(body) {
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'Vazirmatn', system-ui, sans-serif;
   }
 </style>
