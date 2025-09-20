@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { t } from 'svelte-i18n';
+import { t } from 'svelte-i18n'; // ✅ درست
   import {
     availableColors,
     availableEraserSizes,
@@ -126,9 +126,10 @@
   function handleRedo() { redo(); }
 
   function handleClear() {
-    if (confirm("Delete all drawings on this page? This can't be undone.")) {
-      clearCurrentPageDrawings();
-    }
+    if (confirm($t('toolbar.confirm_delete_all'))) {
+  clearCurrentPageDrawings();
+}
+
   }
 
   async function handleLogoClick() {

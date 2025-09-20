@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { onDestroy, onMount, tick } from 'svelte';
+	  import { t } from 'svelte-i18n'; // ✅ درست
+  import { onDestroy, onMount, tick } from 'svelte';
 	import {
 		addDrawingPath,
 		arrowAnnotations,
@@ -1789,11 +1790,12 @@ function handlePointerUp(event: PointerEvent) {
     <!-- Page Info -->
     <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 floating-panel">
       <div class="flex items-center space-x-2 text-sm text-charcoal dark:text-gray-200">
-        <span>Page</span>
+        <span>{$t('navigator.page')}</span>
         <span class="font-semibold">{$pdfState.currentPage}</span>
-        <span>of</span>
+        <span>{$t('navigator.of')}</span>
         <span class="font-semibold">{$pdfState.totalPages}</span>
         <span class="mx-2">•</span>
+          <span>{$pdfState.totalPages} {$t('navigator.pages')}</span>
         <span>{Math.round($pdfState.scale * 100)}%</span>
       </div>
     </div>

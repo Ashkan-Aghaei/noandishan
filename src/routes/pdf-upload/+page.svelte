@@ -69,7 +69,7 @@
           console.log('File loaded successfully from IndexedDB');
         } else {
           console.error('Failed to retrieve file from IndexedDB:', result.error);
-          toastStore.error('File Not Found', 'The uploaded file could not be found. Please try uploading again.');
+          toastStore.error('فایل پیدا نشد', 'لطفاً دوباره آپلود کنید.');
           goto('/');
         }
       } catch (error) {

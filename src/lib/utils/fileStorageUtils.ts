@@ -2,6 +2,9 @@
  * File storage utility using IndexedDB for large PDF files
  * Provides better storage capacity and graceful error handling
  */
+import { get } from 'svelte/store';
+import { t } from 'svelte-i18n';
+const $t = get(t);
 
 import { toastStore } from '$lib/stores/toastStore';
 import { MAX_FILE_SIZE, MAX_STORAGE_TIME, SESSION_MAX_FILE_SIZE, WARNING_FILE_SIZE } from '$lib/constants';
@@ -159,15 +162,23 @@ class FileStorageManager {
         );
         
         // Determine toast title based on error code
-        const toastTitle = storageCheck.errorCode === 'QUOTA_EXCEEDED' ? 'Quota Exceeded' : 'File Too Large';
-        
-        toastStore.error(toastTitle, storageCheck.error || 'File cannot be stored');
-        return { success: false, error };
+        const toastTitle =
+  storageCheck.errorCode === 'QUOTA_EXCEEDED'
+    ? $t('toast.quota_exceeded_title')
+    : $t('toast.file_too_large_title');
+
+const toastMsg =
+  storageCheck.errorCode === 'QUOTA_EXCEEDED'
+    ? $t('toast.quota_exceeded_msg')
+    : $t('toast.file_too_large_msg');
+
+toastStore.error(toastTitle, toastMsg);
+return { success: false, error };
       }
 
       // Show warning for large files
       if (storageCheck.warning) {
-        toastStore.warning('Large File', storageCheck.warning);
+        toastStore.warning($t('toast.large_file_title'), storageCheck.warning ?? '');
       }
 
       // Generate fileId and convert to ArrayBuffer early for potential fallback
@@ -246,10 +257,12 @@ class FileStorageManager {
       
       console.log(`Successfully stored file "${file.name}" (${this.formatBytes(file.size)}) in sessionStorage`);
       
-      toastStore.warning(
-        'Limited Storage',
-        `${file.name} stored temporarily. File will be lost when tab is closed.`
-      );
+     toastStore.warning(
+  $t('toast.limited_storage_title'),
+  $t('toast.limited_storage_msg', { values: { name: file.name } })
+);
+
+
       
       return { success: true, id: fileId };
     } catch (error) {
@@ -259,7 +272,7 @@ class FileStorageManager {
         error as Error
       );
       
-      toastStore.error('Storage Failed', 'Could not store file temporarily. Please try again.');
+toastStore.error($t('toast.storage_failed_title'), $t('toast.temp_store_failed_msg'));
       return { success: false, id: fileId, error: storageError };
     }
   }
@@ -297,10 +310,12 @@ class FileStorageManager {
         transaction.oncomplete = () => {
           console.log(`Successfully stored file "${file.name}" (${this.formatBytes(file.size)}) in IndexedDB`);
           
-          toastStore.success(
-            'File Uploaded',
-            `${file.name} (${this.formatBytes(file.size)}) ready for processing`
-          );
+         toastStore.success(
+  $t('toast.file_uploaded_title') ?? $t('toast.file_uploaded'),
+  $t('toast.file_uploaded_msg', { values: { name: file.name, size: this.formatBytes(file.size) } })
+    ?? `${file.name} (${this.formatBytes(file.size)})`
+);
+
           
           safeResolve({ success: true, id: fileId });
         };
@@ -317,9 +332,10 @@ class FileStorageManager {
           );
           
           toastStore.error(
-            'Storage Full', 
-            'Not enough storage space available. Please free up browser storage or use smaller files.'
-          );
+  $t('toast.storage_full_title'),
+  $t('toast.storage_full_msg')
+);
+
           
           safeResolve({ success: false, error });
           return;
@@ -378,7 +394,7 @@ class FileStorageManager {
             err || undefined
           );
           
-          toastStore.error('Storage Failed', 'Could not store file. Please try again.');
+            toastStore.error($t('toast.storage_failed_title'), $t('toast.storage_failed_msg'));
           safeResolve({ success: false, error });
         }
       };

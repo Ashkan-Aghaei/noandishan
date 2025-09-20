@@ -36,7 +36,7 @@
     "fit_width_short": "Fit W",
     "fit_height": "Fit to height",
     "fit_height_short": "Fit H",
-
+    "confirm_delete_all": "Delete all drawings on this page? This can't be undone.", 
     "hand": "Pan / Hand",
     "pencil": "Pencil (1)",
     "eraser": "Eraser (2)",
@@ -138,11 +138,8 @@
     "save": "Save",
     "search": "Search"
   }
-   , "toast": {
-    "file_uploaded": "File uploaded successfully",
-    "upload_failed": "Upload failed",
-    "unsupported_file": "Unsupported file type"
-  }, "navigator": {
+  ,
+     "navigator": {
     "page": "Page",
     "of": "of",
     "go_to": "Go to page",
@@ -150,6 +147,40 @@
     "next": "Next page",
     "zoom_in": "Zoom in",
     "zoom_out": "Zoom out",
-    "reset_zoom": "Reset zoom"
-  }
+    "reset_zoom": "Reset zoom",
+    "label": "Page navigator",
+    "pages": "pages",
+    "click_to_jump": "Click to jump",
+    "pages_count": "{count} pages"
+  
+  },
+  "toast": {
+  "file_uploaded_title": "Upload successful",
+  "file_uploaded": "File uploaded successfully",
+  "file_uploaded_msg": "{{name}} ({{size}}) is ready for processing",
+    "upload_failed": "Upload failed",
+    "unsupported_file": "Unsupported file type"
+  ,
+
+  "quota_exceeded_title": "Quota Exceeded",
+  "quota_exceeded_msg": "Not enough storage space available. Please free up browser storage or use smaller files.",
+
+  "file_too_large_title": "File Too Large",
+  "file_too_large_msg": "This file exceeds the maximum allowed size.",
+
+  "large_file_title": "Large File",
+
+  "limited_storage_title": "Limited Storage",
+  "limited_storage_msg": "{{name}} stored temporarily. File will be lost when the tab is closed.",
+
+  "storage_failed_title": "Storage Failed",
+  "temp_store_failed_msg": "Could not store file temporarily. Please try again.",
+  "storage_failed_msg": "Could not store file. Please try again.",
+
+  "storage_full_title": "Storage Full",
+  "storage_full_msg": "Not enough storage space available. Please free up browser storage or use smaller files."
+}
+
+
+
 }
